@@ -1,0 +1,37 @@
+version:  '3.7'
+
+services:
+  dcc-verifier-api:
+    container_name: dcc-verifier-api
+    image: grambas/dcc-verifier-api:8.1
+    environment:
+      APP_ENV: prod
+    volumes:
+      - ./app:/srv/app:rw,cached
+      - ./php/prod.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini #overwrite xdebug config
+      - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
+    restart: on-failure
+
+  dcc-verifier-api-nginx:
+    image: nginx:1.15.3-alpine
+    container_name: dcc-verifier-api-nginx
+    restart: on-failure
+    environment:
+      VIRTUAL_HOST: dcc-verifier.de,www.dcc-verifier.de
+      LETSENCRYPT_HOST: dcc-verifier.de,www.dcc-verifier.de
+      LETSENCRYPT_EMAIL: dcc-verifier@mindau.de
+#    ports:
+#      - "81:80"
+    expose:
+      - 80
+    volumes:
+      - ./app:/srv/app:cached
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - dcc-verifier-api
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

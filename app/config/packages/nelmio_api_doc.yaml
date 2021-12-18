@@ -1,0 +1,39 @@
+nelmio_api_doc:
+    models: { use_jms: false }
+    documentation:
+        info:
+            title: DGC Verfier
+            description: |
+                ### Digital green certificate verifier
+                * This api is for **testing** purpose.
+                * This api implements **https://github.com/grambas/dcc-verifier** digital COVID-19 verification SDK
+                * Anyone is able to request a credentials. **Visit /api_credentials**, submit form and you will get credentials for oauth2 grant type client credentials per e-mail.
+                * This api uses **Germany Trust List**. Credits - https://github.com/Digitaler-Impfnachweis/certification-apis/tree/master/dsc-update
+            version: 1.0.0
+        servers:
+            - url: '%env(DOMAIN)%'
+              description: productive
+        components:
+            securitySchemes:
+#                Bearer:
+#                    type: http
+#                    scheme: bearer
+#                    bearerFormat: JWT
+                client_credentials:
+                    type: oauth2
+                    flows:
+                        clientCredentials:
+                            authorizationUrl: '/oauth/authorize'
+                            tokenUrl: '/oauth/token'
+                            refreshUrl: '/oauth/token'
+                            scopes:
+                                'verify': 'verify DGC and get validation date range'
+
+    areas:
+        default:
+            path_patterns:
+                - ^/api
+                - ^/oauth
+                - ^/health_check
+                - ^/api_credentials
+

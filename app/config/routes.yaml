@@ -1,0 +1,3 @@
+#validate:
+#  path: /api/v1/validate/certificate
+#  controller: App\Controller\ValidateController::__invoke

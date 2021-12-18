@@ -1,0 +1,5 @@
+oauth2:
+#    resource: '@TrikoderOAuth2Bundle/Resources/config/routes.xml'
+    methods: POST
+    defaults: {_controller: Trikoder\Bundle\OAuth2Bundle\Controller\TokenController::indexAction }
+    path: /oauth/token

@@ -1,0 +1,30 @@
+# https://oauth2.thephpleague.com/installation/#generating-public-and-private-keys
+trikoder_oauth2:
+    authorization_server:
+        private_key: '%kernel.project_dir%/resources/oauth/%kernel.environment%/private.key'
+        private_key_passphrase: null
+        encryption_key: '%env(string:OAUTH2_ENCRYPTION_KEY)%'
+
+        grant_types:
+            client_credentials:
+                enable: true
+                access_token_ttl: PT6H
+            refresh_token:
+                enable: true
+                access_token_ttl: P1M
+            authorization_code:
+                enable: false
+            implicit:
+                enable: false
+            password:
+                enable: false
+
+    resource_server:
+        public_key: '%kernel.project_dir%/resources/oauth/%kernel.environment%/public.key'
+
+    persistence:
+        doctrine:
+            entity_manager: default
+
+    scopes:
+        - 'verify'
