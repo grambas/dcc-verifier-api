@@ -14,6 +14,7 @@
         "grambas/dcc-verifier": "dev-main",
         "mhauri/base45": "^0.1.1",
         "nelmio/api-doc-bundle": "^4.6",
+        "nelmio/cors-bundle": "^2.2",
         "nyholm/psr7": "^1.4",
         "phpdocumentor/reflection-docblock": "^5.3",
         "rollbar/rollbar-php-symfony-bundle": "^4.0",
