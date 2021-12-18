@@ -18,6 +18,13 @@ You are free to use and test it on [https://dcc-verifier.de/](https://dcc-verifi
 ```
 docker-compose up
 ```
+* prepare your app
+```
+composer install 
+bin/console doctrine:database:create
+bin/console doctrine:schema:update --force
+bin/console dcc:trust-list:update
+```
 
 * visit [http://localhost:81](http://localhost:81)
 
