@@ -13,9 +13,10 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
 
-	mkdir -p resources
-	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX resources
-	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX resources
+    if [ -d "./resource" ]; then
+        setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX resources
+        setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX resources
+    fi
 fi
 
 exec docker-php-entrypoint "$@"

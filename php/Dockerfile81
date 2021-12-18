@@ -82,8 +82,6 @@ RUN chmod +x /usr/local/bin/docker-healthcheck
 
 HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 
-#COPY php-fpm.conf /usr/local/etc/php-fpm.d/zz-docker.conf
-
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
@@ -99,7 +97,6 @@ ENV PATH="${PATH}:/root/.composer/vendor/bin"
 WORKDIR /srv/app
 
 VOLUME /srv/app/var
-VOLUME /srv/app/resources
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
