@@ -36,7 +36,7 @@ final class ExceptionListener implements EventSubscriberInterface, LoggerAwareIn
         $exception = $event->getThrowable();
 
 
-        $this->logger->error('ABC Exception acquired: ' . $exception->getMessage(), [
+        $this->logger->error('Exception acquired: ' . $exception->getMessage(), [
             'e' => $exception,
         ]);
 

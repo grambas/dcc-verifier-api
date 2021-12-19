@@ -16,6 +16,7 @@ use Grambas\Repository\GermanyTrustListRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,11 +27,16 @@ class ValidateController extends AbstractController
 {
     protected $resourcesDir;
     protected $serializer;
+    protected $logger;
 
-    public function __construct(SerializerInterface $serializer, string $resourcesDir)
-    {
+    public function __construct(
+        SerializerInterface $serializer,
+        string $resourcesDir,
+        LoggerInterface $logger
+    ) {
         $this->serializer = $serializer;
         $this->resourcesDir = $resourcesDir;
+        $this->logger = $logger;
     }
 
     /**
@@ -93,7 +99,9 @@ class ValidateController extends AbstractController
         try {
             $verifier->verify();
         } catch (Exception $exception) {
-            //todo log
+            $this->logger->error('Exception by verifying open ssl signature: ' . $exception->getMessage(), [
+                'exception' => $exception
+            ]);
             $response->addError(102, 'certificate signature could not be verified');
         }
 
