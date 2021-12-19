@@ -4,4 +4,4 @@ rollbar:
   environment: prod
   include_error_code_context: true
   include_raw_request_body: true
-  log_payload: true
+  log_payload: false
