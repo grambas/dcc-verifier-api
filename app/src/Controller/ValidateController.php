@@ -99,9 +99,7 @@ class ValidateController extends AbstractController
         try {
             $verifier->verify();
         } catch (Exception $exception) {
-            $this->logger->error('Exception by verifying open ssl signature: ' . $exception->getMessage(), [
-                'exception' => $exception
-            ]);
+            $this->logger->error('Exception by verifying open ssl signature: ' . $exception->getMessage());
             $response->addError(102, 'certificate signature could not be verified');
         }
 

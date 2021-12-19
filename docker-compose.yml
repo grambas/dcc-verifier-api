@@ -38,4 +38,4 @@ services:
     restart: unless-stopped
     ports:
       - "1026:1026"
-      - "1081:1081" # web interface, use MAILER_DSN=smtp://mailer:1026
+      - "1081:1080" # web interface, use MAILER_DSN=smtp://mailer:1026
